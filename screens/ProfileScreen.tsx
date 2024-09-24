@@ -95,13 +95,13 @@ const styles = StyleSheet.create({
   },
   avatarContainer: {
     alignItems: 'center',
-    marginTop: -50,
+    marginTop: -100,
   },
   avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    borderWidth: 2,
+    width: 200,
+    height: 200,
+    borderRadius: 200,
+    borderWidth: 12,
     borderColor: '#fff',
   },
   name: {

@@ -32,6 +32,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       // Armazena o token localmente
       await AsyncStorage.setItem('userToken', access_token);
       await AsyncStorage.setItem('userName', user.name);
+      await AsyncStorage.setItem('userId', `${user.id}`);
 
       console.log('Login efetuado com sucesso!', access_token, user);
 
