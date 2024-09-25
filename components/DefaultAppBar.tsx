@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
 
@@ -23,8 +23,8 @@ const DefaultAppBar: React.FC<DefaultAppBarProps> = ({ user, avatarUrl, navigati
 
       {/* Ícones à direita */}
       <View style={styles.rightContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-          <Ionicons name='notifications-outline' size={24} color='black' style={styles.icon} />
+        <TouchableOpacity onPress={() => navigation.navigate('Feedback')}>
+          <FontAwesome name='comment-o' size={24} color='black' style={styles.icon} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>

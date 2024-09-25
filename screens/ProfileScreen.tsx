@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { userInfo } from '../utils/user';
+import { userInfo } from '../utils/user'; // Função para buscar as informações do usuário
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -39,7 +39,7 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     getUserInfo();
-  });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -56,17 +56,32 @@ const ProfileScreen = () => {
         <Text style={styles.email}>{userEmail}</Text>
       </View>
 
-      {/* Menu de opções */}
+      {/* Menu de opções baseado na role do usuário */}
       <View style={styles.menuContainer}>
-        <View style={styles.menuItem}>
-          <Text style={styles.menuText}>{userName}</Text>
+        <View style={styles.menuContainer}>
+          <View style={styles.menuItem}>
+            <Text style={styles.menuText}>{userName}</Text>
+          </View>
+          <View style={styles.menuItem}>
+            <Text style={styles.menuText}>{userEmail}</Text>
+          </View>
+          <View style={styles.menuItem}>
+            <Text style={styles.menuText}>Permissão: {userRole === 'admin' ? 'Administrador' : 'Usuário'}</Text>
+          </View>
         </View>
-        <View style={styles.menuItem}>
-          <Text style={styles.menuText}>{userEmail}</Text>
-        </View>
-        <View style={styles.menuItem}>
-          <Text style={styles.menuText}>Permissão: {userRole === 'admin' ? 'Administrador' : 'Usuário'}</Text>
-        </View>
+        {userRole === 'admin' && (
+          <>
+            <Text></Text>
+            <Text style={{ fontWeight: 700, paddingHorizontal: 20 }}>Funções administrativas</Text>
+            <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('AdminTreatment' as never)}>
+              <Text style={styles.menuAdminText}>Gerenciar Tratamentos</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('AdminEquipment' as never)}>
+              <Text style={styles.menuAdminText}>Gerenciar Equipamentos</Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
 
       {/* Botão de Logout */}
@@ -125,6 +140,11 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 16,
     color: '#333',
+  },
+  menuAdminText: {
+    fontSize: 16,
+    color: '#069',
+    fontWeight: 'bold',
   },
   logoutButton: {
     marginHorizontal: 20,
