@@ -52,9 +52,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         <Text style={styles.title}>Entre com seus dados</Text>
         <TextInput style={styles.input} placeholder='Seu e-mail' value={email} onChangeText={setEmail} />
         <TextInput style={styles.input} placeholder='Sua senha' secureTextEntry value={password} onChangeText={setPassword} />
-        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
-        </TouchableOpacity>
+
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginText}>ACESSAR</Text>
         </TouchableOpacity>
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     padding: 20,
-    marginTop: 200,
+    marginBottom: 50,
   },
   title: {
     fontSize: 28,

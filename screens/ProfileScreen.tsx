@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { userInfo } from '../utils/user'; // Função para buscar as informações do usuário
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ route }: any) => {
   const navigation = useNavigation();
   const [userAvatar, setUserAvatar] = useState<string>('https://www.gravatar.com/avatar/');
   const [userName, setUserName] = useState<string>('Usuário');
   const [userRole, setUserRole] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string>('');
+  const [userId, setUserId] = useState<string>();
 
   // Função para pegar informações do usuário
   const getUserInfo = async () => {
@@ -19,6 +20,7 @@ const ProfileScreen = () => {
       setUserName(user.name);
       setUserAvatar(user.avatarUrl);
       setUserEmail(user.email);
+      setUserId(user.id);
     } catch (error) {
       Alert.alert('Erro', 'Falha ao carregar informações');
     }
@@ -37,9 +39,16 @@ const ProfileScreen = () => {
     }
   };
 
-  useEffect(() => {
-    getUserInfo();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getUserInfo(); // Atualiza os feedbacks toda vez que a aba é focada
+    }, [route.name])
+  );
+
+  // Função para editar o perfil
+  const editProfile = () => {
+    navigation.navigate('ProfileEdit' as never);
+  };
 
   return (
     <View style={styles.container}>
@@ -54,6 +63,9 @@ const ProfileScreen = () => {
         />
         <Text style={styles.name}>{userName}</Text>
         <Text style={styles.email}>{userEmail}</Text>
+        <TouchableOpacity style={styles.editProfileButton} onPress={editProfile}>
+          <Text style={styles.editProfileButtonText}>Editar Perfil</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Menu de opções baseado na role do usuário */}
@@ -159,6 +171,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  editProfileButton: {
+    marginTop: 20,
+  },
+  editProfileButtonText: {
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 

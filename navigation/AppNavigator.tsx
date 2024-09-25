@@ -16,6 +16,7 @@ import AdminEditTreatmentScreen from '../screens/AdminEditTreatmentScreen';
 import AdminEditEquipmentScreen from '../screens/AdminEditEquipmentScreen';
 import AdminEquipmentScreen from '../screens/AdminEquipmentScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
+import ProfileEditScreen from '../screens/ProfileEditScreen';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -34,6 +35,7 @@ export type RootStackParamList = {
   Feedback: undefined;
   Lidos: undefined;
   Novos: undefined;
+  ProfileEdit: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -56,6 +58,7 @@ const AppNavigator = () => {
         <Stack.Screen name='AdminEquipment' component={AdminEquipmentScreen} options={{ title: 'Gestão de Equipamentos' }} />
         <Stack.Screen name='AdminEditEquipment' component={AdminEditEquipmentScreen} options={{ title: 'Editar Equipamento' }} />
         <Stack.Screen name='Feedback' component={FeedbackScreen} options={{ title: 'Comentários' }} />
+        <Stack.Screen name='ProfileEdit' component={ProfileEditScreen} options={{ title: 'Editar Perfil' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
